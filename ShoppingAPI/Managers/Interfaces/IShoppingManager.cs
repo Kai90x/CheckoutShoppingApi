@@ -5,9 +5,9 @@ namespace ShoppingAPI.Managers.Interfaces
 {
     public interface IShoppingManager
     {
-        void add(string name,int quantity);
-        void update(int id, int quantity);
-        void delete(int id);
+        Shopping add(string name, int quantity);
+        Shopping update(string name, int quantity);
+        void delete(string name);
         Shopping get(string name);
         List<Shopping> get();
     }

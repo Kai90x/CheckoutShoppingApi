@@ -45,6 +45,9 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\packages\Autofac.WebApi.3.1.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -154,8 +157,9 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\DrinksController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\Shopping.cs">
       <DependentUpon>ShoppingModel.tt</DependentUpon>
     </Compile>
@@ -177,6 +181,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JsonClass\EndpointJson.cs" />
+    <Compile Include="JsonClass\ShoppingJson.cs" />
     <Compile Include="Managers\Interfaces\IShoppingManager.cs" />
     <Compile Include="Managers\ShoppingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

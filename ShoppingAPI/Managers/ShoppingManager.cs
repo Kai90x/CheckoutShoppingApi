@@ -17,7 +17,7 @@ namespace ShoppingAPI.Managers
             _entities = new ShoppingEntities();
         }
 
-        public void add(string name, int quantity)
+        public Shopping add(string name, int quantity)
         {
             var existingItem =
                 _entities.Shoppings.FirstOrDefault(se => se.name.Equals(name, StringComparison.OrdinalIgnoreCase));
@@ -27,32 +27,37 @@ namespace ShoppingAPI.Managers
             var item = new Shopping
             {
                 name = name,
-                quantity = quantity
+                quantity = quantity,
+                date_created = DateTime.Now,
+                date_modified = DateTime.Now
             };
 
             _entities.Shoppings.Add(item);
             _entities.SaveChanges();
+
+            return item;
         }
 
-        public void update(int id, int quantity)
+        public Shopping update(string name, int quantity)
         {
-            var existingItem =
-                _entities.Shoppings.FirstOrDefault(se => se.Id == id);
+            var existingItem = get(name);
             if (existingItem == null)
-                throw new Exception(string.Format("item with id {0} does not exists", id));
+                throw new Exception(string.Format("item {0} does not exists", name));
 
             existingItem.quantity = quantity;
+            existingItem.date_modified = DateTime.Now;
 
             _entities.Shoppings.AddOrUpdate(existingItem);
             _entities.SaveChanges();
+
+            return existingItem;
         }
 
-        public void delete(int id)
+        public void delete(string name)
         {
-            var existingItem =
-                _entities.Shoppings.FirstOrDefault(se => se.Id == id);
+            var existingItem = get(name);
             if (existingItem == null)
-                throw new Exception(string.Format("item with id {0} does not exists", id));
+                throw new Exception(string.Format("item {0} does not exists", name));
 
             _entities.Shoppings.Remove(existingItem);
             _entities.SaveChanges();
@@ -60,7 +65,7 @@ namespace ShoppingAPI.Managers
 
         public Shopping get(string name)
         {
-            return _entities.Shoppings.FirstOrDefault(se => se.name.Equals(name));
+            return _entities.Shoppings.FirstOrDefault(se => se.name.Equals(name,StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Shopping> get()

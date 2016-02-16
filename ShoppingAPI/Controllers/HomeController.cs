@@ -1,13 +1,50 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Web;
+using System.Web.Http;
+using ShoppingAPI.JsonClass;
 
 namespace ShoppingAPI.Controllers
 {
-    public class HomeController : ApiController
+    public class HomeController : BaseApiController
     {
         [HttpGet]
-        public string Index()
+        public HttpResponseMessage Index()
         {
-            return "value";
+            var endpoints = new List<EndpointJson>();
+            endpoints.Add(new EndpointJson
+            {
+                endpoint = "/drinks",
+                method = "GET"
+            });
+
+            endpoints.Add(new EndpointJson
+            {
+                endpoint = "/drinks/{name}",
+                method = "GET"
+            });
+
+            endpoints.Add(new EndpointJson
+            {
+                endpoint = "/drinks/{name}/{quantity}",
+                method = "POST"
+            });
+
+            endpoints.Add(new EndpointJson
+            {
+                endpoint = "/drinks/{name}/{quantity}",
+                method = "PUT"
+            });
+
+            endpoints.Add(new EndpointJson
+            {
+                endpoint = "/drinks/{name}",
+                method = "DELETE"
+            });
+
+            return CreateResponse(endpoints);
         }
 
     }
